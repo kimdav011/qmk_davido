@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 #include "rgb_matrix_map.h"
+#include "print.h"
 
 enum custom_keycodes {
     KCRGB_1 = SAFE_RANGE,
@@ -187,6 +188,126 @@ void matrix_scan_user(void) {
 
 /* RGB Functions */
 #ifdef RGB_MATRIX_ENABLE
+    void handle_current_animation_rgb(void) {
+
+        // Set initial colors
+        rgb_matrix_set_color(LED_F1, RGB_BLACK);
+        rgb_matrix_set_color(LED_F2, RGB_BLACK);
+        rgb_matrix_set_color(LED_F3, RGB_BLACK);
+        rgb_matrix_set_color(LED_F4, RGB_BLACK);
+        rgb_matrix_set_color(LED_F5, RGB_BLACK);
+        rgb_matrix_set_color(LED_F6, RGB_BLACK);
+        rgb_matrix_set_color(LED_F7, RGB_BLACK);
+        rgb_matrix_set_color(LED_F8, RGB_BLACK);
+        rgb_matrix_set_color(LED_F9, RGB_BLACK);
+        rgb_matrix_set_color(LED_F10, RGB_BLACK);
+        rgb_matrix_set_color(LED_F11, RGB_BLACK);
+        rgb_matrix_set_color(LED_F12, RGB_BLACK);
+
+        rgb_matrix_set_color(LED_ESC, RGB_WHITE);
+
+        switch(rgb_matrix_get_mode()) {
+            case 1:
+                rgb_matrix_set_color(LED_F1, RGB_WHITE);
+                break;
+            case 2:
+                rgb_matrix_set_color(LED_F2, RGB_WHITE);
+                break;
+            case 3:
+                rgb_matrix_set_color(LED_F3, RGB_WHITE);
+                break;
+            case 4:
+                rgb_matrix_set_color(LED_F4, RGB_WHITE);
+                break;
+            case 5:
+                rgb_matrix_set_color(LED_F5, RGB_WHITE);
+                break;
+            case 6:
+                rgb_matrix_set_color(LED_F6, RGB_WHITE);
+                break;
+            case 7:
+                rgb_matrix_set_color(LED_F7, RGB_WHITE);
+                break;
+            case 8:
+                rgb_matrix_set_color(LED_F8, RGB_WHITE);
+                break;
+            case 9:
+                rgb_matrix_set_color(LED_F9, RGB_WHITE);
+                break;
+            case 10:
+                rgb_matrix_set_color(LED_F10, RGB_WHITE);
+                break;
+            case 11:
+                rgb_matrix_set_color(LED_F11, RGB_WHITE);
+                break;
+            case 12:
+                rgb_matrix_set_color(LED_F12, RGB_WHITE);
+                break;
+            case 13:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F1, RGB_WHITE);
+                break;
+            case 14:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F2, RGB_WHITE);
+                break;
+            case 15:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F3, RGB_WHITE);
+                break;
+            case 16:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F4, RGB_WHITE);
+                break;
+            case 17:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F5, RGB_WHITE);
+                break;
+            case 18:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F6, RGB_WHITE);
+                break;
+            case 19:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F7, RGB_WHITE);
+                break;
+            case 20:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F8, RGB_WHITE);
+                break;
+            case 21:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F9, RGB_WHITE);
+                break;
+            case 22:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F10, RGB_WHITE);
+                break;
+            case 23:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F11, RGB_WHITE);
+                break;
+            case 24:
+                rgb_matrix_set_color(LED_ESC, RGB_RED);
+                rgb_matrix_set_color(LED_F12, RGB_WHITE);
+                break;
+            case 25:
+                rgb_matrix_set_color(LED_ESC, RGB_GOLD);
+                rgb_matrix_set_color(LED_F1, RGB_WHITE);
+                break;
+            case 26:
+                rgb_matrix_set_color(LED_ESC, RGB_GOLD);
+                rgb_matrix_set_color(LED_F2, RGB_WHITE);
+                break;
+            case 27:
+                rgb_matrix_set_color(LED_ESC, RGB_GOLD);
+                rgb_matrix_set_color(LED_F3, RGB_WHITE);
+                break;
+            default:
+                break;
+        }
+    }
+
     void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         switch(get_highest_layer(layer_state)) {
             case 1: // Layer 1
@@ -203,7 +324,7 @@ void matrix_scan_user(void) {
                 rgb_matrix_set_color(LED_0, RGB_BLACK);
 
                 // Light Function Key row based on current animation
-
+                handle_current_animation_rgb();
 
                 // Highlight some function keys
                 rgb_matrix_set_color(LED_LEFT, RGB_RED);    // Shuffle animation reverse
@@ -238,4 +359,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 void keyboard_post_init_user(void) {
     timeout_timer = timer_read(); // set inital time for ide timeout
+
+    // Debug Settings
+    // debug_enable=true;
+    // debug_matrix=true;
 }
